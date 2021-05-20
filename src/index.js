@@ -8,9 +8,7 @@ import countryBoxTemplate from './country-box.hbs'
 import '../node_modules/@pnotify/core/dist/BrightTheme.css';
 import '../node_modules/@pnotify/core/dist/PNotify.css';
 import '../node_modules/@pnotify/mobile/dist/PNotifyMobile.css';
-import { error, defaultModules } from '../node_modules/@pnotify/core/dist/PNotify.js';
-import * as PNotifyMobile from '../node_modules/@pnotify/mobile/dist/PNotifyMobile.js';
-defaultModules.set(PNotifyMobile, {});
+import {error} from '../node_modules/@pnotify/core/dist/PNotify.js';
 
 var debounce = require('lodash.debounce');
 
@@ -26,10 +24,9 @@ function onCountryNameFieldInput() {
 
 function responseProcessing(data) {
     murkupBox.innerHTML = ""
+    console.log(data)
     if (data.length > 10) {
-        error({
-            title: 'Too many matches found. Please enter more specific query!',
-        });
+        pontyfyMassage('Too many matches found. Please enter more specific query!')
     }
     if (1 < data.length && data.length < 10) {
         const markup = countriesListTemplate(data)
@@ -39,6 +36,16 @@ function responseProcessing(data) {
         const markup = countryBoxTemplate(data)
         murkupBox.insertAdjacentHTML('beforeend', markup)
     }
+    if (data.status === 404) {
+        pontyfyMassage('Nothing was found for your query!')
+    }
+}
+
+function pontyfyMassage(message) {
+    error({
+            title: `${message}`,
+            delay: 1200,
+        });
 }
 
 
