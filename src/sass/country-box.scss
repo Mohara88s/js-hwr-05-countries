@@ -1,0 +1,30 @@
+.country-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.country-box__name {
+  font-size: 40px;
+}
+.country-box__info {
+  display: flex;
+  justify-content: space-around;
+}
+.caption-list {
+  list-style: none;
+}
+.caption-list__item {
+  &:not(:last-child) {
+    display: flex;
+    align-items: baseline;
+    & p {
+      margin-left: 4px;
+    }
+  }
+}
+.caption-list__languages {
+  list-style-type: disc;
+}
+.country-box__flag {
+  max-width: 50%;
+}
