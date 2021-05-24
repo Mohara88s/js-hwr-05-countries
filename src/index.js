@@ -21,6 +21,7 @@ function onCountryNameFieldInput () {
     if (countryNameField.value) {
         fetchCountries(countryNameField.value)
         .then(responseProcessing)
+        .catch(pontyfyMassage('Nothing was found for your query!'))
     }
     
     
@@ -28,11 +29,6 @@ function onCountryNameFieldInput () {
 
 function responseProcessing(data) {
     murkupBox.innerHTML = ""
-    console.log(data)
-    if (!data) {
-        pontyfyMassage('Nothing was found for your query!')
-        return
-    }
     if (data.length > 10) {
         pontyfyMassage('Too many matches found. Please enter more specific query!')
         return
