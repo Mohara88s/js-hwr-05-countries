@@ -43,7 +43,6 @@ function responseProcessing(data) {
         murkupBox.insertAdjacentHTML('beforeend', markup)
         return
     }
-    
 }
 
 function pontyfyMassage(message) {
