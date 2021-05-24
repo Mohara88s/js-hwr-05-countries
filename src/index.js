@@ -17,34 +17,43 @@ const countryNameField = document.querySelector('[name="countryname"]')
 
 countryNameField.addEventListener('input', debounce(onCountryNameFieldInput, 500))
 
-function onCountryNameFieldInput() {
-    fetchCountries(countryNameField.value)
+function onCountryNameFieldInput () {
+    if (countryNameField.value) {
+        fetchCountries(countryNameField.value)
         .then(responseProcessing)
+    }
+    
+    
 }
 
 function responseProcessing(data) {
     murkupBox.innerHTML = ""
     console.log(data)
+    if (!data) {
+        pontyfyMassage('Nothing was found for your query!')
+        return
+    }
     if (data.length > 10) {
         pontyfyMassage('Too many matches found. Please enter more specific query!')
+        return
     }
     if (1 < data.length && data.length < 10) {
         const markup = countriesListTemplate(data)
         murkupBox.insertAdjacentHTML('beforeend', markup)
+        return
     }
     if (data.length === 1) {
         const markup = countryBoxTemplate(data)
         murkupBox.insertAdjacentHTML('beforeend', markup)
+        return
     }
-    if (data.status === 404) {
-        pontyfyMassage('Nothing was found for your query!')
-    }
+    
 }
 
 function pontyfyMassage(message) {
     error({
             title: `${message}`,
-            delay: 1200,
+            delay: 1500,
         });
 }
 
