@@ -4,7 +4,5 @@ export default function fetchCountries(searchQuery) {
             if (response.ok) return response.json()
             throw new Error("Error fetching data")   
         })
-            .catch(error => {
-                return error;
-            })
+        .catch(() => {return 404})
         }
